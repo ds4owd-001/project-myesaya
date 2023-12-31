@@ -1,0 +1,46 @@
+---
+title: "My Project"
+author: "Mabvuto Yesaya"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Project description
+
+The data is from TA Wasambo of Karonga district (Northen Malawi). This data is for boreholes/handpumps that people mostly rely on for drinking water collection, secondary to wells and rivers. The data were collected in 2013, and my interests are:
+
+**(placeholder objectives)**
+
+1.  To know the distribution of boreholes per Village.
+
+2.  To check if there is a correlation between those who set tariff fees and the amount that is agreed to be paid as a tariff
+
+3.  To check the different borehole repair parts that are most associated with functionality/non-functionality of boreholes
+
+## Goal
+
+The goal of this document is to explore, clean and select the final variables from borehole Malawi dataset. The selected variables will be used in:
+
+1.   Analysis
+
+2.   Codebook
+
+3.  Making R package
+
+# Import data
+
+```{r}
+# library
+library(tidyverse)
+```
+
+```{r}
+## data
+#read_csv or read_csv2 to read in a ; separated file does not work for me after consulting perplexity ai for multiple times. In the meantime, I will use read_delim. 
+
+borehole_malawi <- read_delim("/cloud/project/data/raw/Borehole_Malawi_-_all_versions_-_labels_-_2023-12-31-03-34-25.csv",
+                            delim = ";")
+
+```
