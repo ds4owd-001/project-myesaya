@@ -1,0 +1,93 @@
+﻿varable_name,description
+date,What is today's date
+ta_name,Name of the TA
+village_name,Name of the village
+vdc_name,Name of VDC
+respondent_role,Main role of the respondent
+bh_functional,Functional status of the borehole
+functionality_not,"If Functional status is one of not functional, No longer exists or abandonedHow long has the hand pump borehole been non-functional or abandoned?"
+non_functional_why_abangoned,If Functional status is No longer exists or abandoned Why was the hand pump borehole abandoned?
+functional_problems_availability,"If Functional status is Functional, Are there any current problems with the hand pump borehole that require attention?"
+functional_problems_name,What is the current problem?
+challenges,If Functional status isn't No longer exists or abandoned and Are there any current problems with the hand pump borehole that require attention?
+borehole_problem,What is the current problem?
+available,"If Functional status isn't No longer exists or abandoned, Is water available from the hand pump borehole on the day of the visit?"
+why_water_unavailable,Why isn't water available from the system on the day of the visit?
+continuos_supply,"If Functional status isn't one of No longer exists or abandoned, Not functional: In the last 30 days, has this hand pump borehole provided a continuous supply of water all day every day?"
+time,"If In the last 30 days, has this hand pump borehole provided a continuous supply of water all day every day? Is No:In the last 30 days, how many days has the hand pump borehole provided water?"
+mechanic,"In the last 30 days, why was water not available for one or more days?"
+period_repair,"If the hand pump borehole was repaired in the last 30 days, how many days did it take to get repaired?"
+hour_per_day,"If Functional status isn't one of No longer exists or abandoned, Not functional:How many hours per day is water usually available from this source?"
+rehabilated_before,Has the hand pump borehole been rehabilitated?
+major_repair_happened,Have any major repairs/additions been completed on the hand pump borehole in the past year?
+parts_repaired,Which Afridev parts were repaired/replaced?
+rods_num,If Which Afridev parts were repaired/replaced? Includes Rods:How many rods were replaced?
+cost_repair_kwacha,How much did the repairs/upgrade cost (in Kwacha)?
+person_repaired,Who did the repairs
+wash_committee_management,Is this hand pump borehole managed by a water/WaSH committee?
+people_in_committee,How many people are on the Hand pump borehole Committee?
+wnummber,How many women are on the Hand pump borehole Committee?
+treasure_presence,do you have a treasurer in the comittee?
+treasure_gender,What is the gender of the Treasurer for the Hand pump borehole Committee?
+active_committee_members,How many active people/members serve on the water/ WaSH Committee?
+women_positions,What positions do women hold on the Water/ WaSH committee?
+meeeting_lasttime,When was the last time the Water committee met?
+face_the_community,Does the Water committee ever hold meetings with the community?
+last_time,When was the last time that the Water/ WaSH committee held a community meeting?
+com_member_num,About how many community members attended the last meeting? (99 is don’t know)
+activities_type,What activities has the Water/ WaSH committee done in the past year?
+appoint_or_elect,Were Water/WaSH committee members elected or appointed?
+preventive_mantainance,Do you conduct preventive maintenance?
+frequency,"If yes, how frequent? (per year)"
+last_mantainance,When did you last do mantainance?
+last_mantainance_no reason,"If no, what are the reasons?"
+support_needed,Do you require external support?
+support_name,"If yes, what?"
+who_called,Who do you call when the repairs are beyond your capacity
+major_repair,can you do major repairs as a committee?
+bh_use_num,How many households use (d) this hand pump borehole?
+users,How many households are (were) registered users of the hand pump borehole?
+record,Is there a record book for registered users that can be viewed?
+reg_user,Record the number of registered users of the hand pump borehole listed in the record Book
+pump_type,What type of hand pump is present?
+fee,Does (did) the hand pump borehole have a fee collection system?
+w_fee,Is (was) the water fee collected on a regular schedule?
+tariff_hh_number,How many households in the community paid a water fee the last time it was collected?
+tarif,Is there a tariff or user fee for water use from the hand pump borehole?
+no_fee_why,Why is there no tariff or user fee?
+break,What happens when the hand pump borehole breaks down?
+tarrif_frequency,How often is the tariff/user fee collected?
+tariff_amount,How much is the tariff/user fee (in Kwacha)?
+tariff_costs_consider,What costs were considered when setting the tariff or user fee?
+o_m,Is there a service provider or someone responsible for operating and/or maintaining this hand pump borehole or water system?
+financial_records,Are there financial records/books for the hand pump borehole?
+review_records,Is it possible to review the records/books?
+records_balancee,What is the balance listed in the records (in Kwacha)?
+available_service_provider,Is there a service provider or someone responsible for operating and/or maintaining this hand pump borehole or water system?
+bank_account,Does the service provider have a bank account?
+bank_account_balance,How much is the bank balance
+cash_collected,What do you do with the cash collected?
+broke_additional,"The last time this hand pump borehole broke down, did the water committee collect additional money from community members to cover the cost of repairs?"
+contributions,"In some communities, water users will make non-monetary contributions to help keep water facilities running. Do you know of one or more community members who have contributed the following:"
+community_sufficient,Does (did) your community have sufficient funds to support operations and maintenance?
+support_money,How much money do you currently have for supporting operations and maintenance?
+source_o_m,How much do you source to support operations and maintenance annually?
+money_manage,How much money do u need to manage this borehole without financial problems annually?
+distance_to_spareparts,"How far away are (were) the materials you use for hand pump borehole repairs (ex. spare parts, tools, etc.)?"
+how_long_spareparts,"How long does it take to get the materials you use for hand pump borehole repairs (e.g. spare parts, tools, etc.?)"
+call,Do you call someone to assess or fix the hand pump borehole if there is (was) a technical problem that cannot be fixed on this hand pump borehole?
+called_come,Did the person come the last time you called?
+community_plan,Does (did) your community have a plan for operation and maintenance of the hand pump borehole?
+caretaker_presence,Is (was) there at least one operator or caretaker for this hand pump borehole?
+caretaker_trained,Has at least one of these people received training in operation and maintenance of the system?
+caretaker_paid,Is (was) the operator/caretaker paid?
+month_paid,How much is (was) she/he paid per month?
+work_hours,How many hours does (did) the operator or caretaker work each month?
+construction_financed,Who financed the construction of this hand pump borehole
+continuous_supply,Does the hand pump borehole have continuous water service availability? (24 hours per day per year)
+seasonal,Does the hand pump borehole have only seasonal service?
+service_cont,Does the hand pump borehole have continuous water service (24 hours/day) during the season when the hand pump borehole is available for use?
+service_schedule,Does the hand pump borehole have a scheduled water service?
+breakdownss,How many breakdowns happened in the past year?
+weeks_break,Has this hand pump borehole had a breakdown in the past two weeks?
+time_length_nonf,For what length of time was the hand pump borehole nonfunctional during its last breakdown?

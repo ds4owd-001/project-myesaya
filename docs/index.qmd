@@ -1,31 +1,35 @@
 ---
-title: "My Project"
-author: "Mabvuto Yesaya"
+title: "Determinants of borehole' functionality in Northen Malawi"
+author:
+- name: "Mabvuto Yesaya"
+  orcid: "0000-0003-3234-9699"
+  affiliation: "Malawi University of Business and Applied Sciences,Malawi"
+  authornote: "ORCID: 0000-0003-3234-9699"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+toc: true
 format: html
 editor: visual
 editor_options: 
   chunk_output_type: console
 ---
 
-## Project description
+# Project description
 
-The data is from TA Wasambo of Karonga district (Northen Malawi). This data is for boreholes/handpumps that people mostly rely on for drinking water collection, secondary to wells and rivers. The data were collected in 2013, and my interests are:
+The data is from TA Wasambo in Karonga district (Northen Malawi). This data is for boreholes/handpumps that people mostly rely on for drinking water collection, secondary to wells and rivers. The data were collected in June 2013, and my interests are:
 
 **(placeholder objectives)**
 
-1.  To know the distribution of boreholes per Village.
+1.  To know the users of boreholes per village.
 
-2.  To check if there is a correlation between those who set tariff fees and the amount that is agreed to be paid as a tariff
+2.  To check if there is a relationship between the costs that were considered before setting the tariff and the amount that is agreed to be paid as a tariff per month now
 
-3.  To check the different borehole repair parts that are most associated with functionality/non-functionality of boreholes
+3.  To check if the actual tariff collected per month, tariff collection frequency, distance to where borehole spare parts are, presence of a service provider, actual tariff collected and conducting preventive maintenance lead to the functionality of boreholes
 
-## Goal
+The goal of this document is to explore, clean, and select the final variables from the borehole Malawi dataset. The selected variables will be used in:
 
-The goal of this document is to explore, clean and select the final variables from borehole Malawi dataset. The selected variables will be used in:
+1.  Analysis
 
-1.   Analysis
-
-2.   Codebook
+2.  Codebook
 
 3.  Making R package
 
@@ -33,14 +37,263 @@ The goal of this document is to explore, clean and select the final variables fr
 
 ```{r}
 # library
+#data wrangling, tidying,column mutations etc
 library(tidyverse)
+
+#clean column names
+library (janitor)
+
+#for EDA
+library(explore)
+
+#here here package
+library(here)
+
+#making simple tables
+library(knitr)
+
+library(dplyr)
+
+#for making dummy variables
+library(fastDummies)
 ```
 
 ```{r}
 ## data
 #read_csv or read_csv2 to read in a ; separated file does not work for me after consulting perplexity ai for multiple times. In the meantime, I will use read_delim. 
 
-borehole_malawi <- read_delim("/cloud/project/data/raw/Borehole_Malawi_-_all_versions_-_labels_-_2023-12-31-03-34-25.csv",
+borehole_malawi_raw <- read_delim("/cloud/project/data/raw/Borehole_Malawi_-_all_versions_-_labels_-_2023-12-31-03-34-25.csv",
                             delim = ";")
 
+```
+
+# Data cleaning
+
+```{r}
+#add id numbers
+borehole_malawi<-borehole_malawi_raw |> 
+mutate(id = seq(1:n())) |> 
+  relocate(id)
+
+```
+
+```{r}
+
+#renaming relevant questions 
+
+borehole_malawi<-borehole_malawi |> 
+  rename(id=id,
+         date=today)  
+
+```
+
+```{r}
+ #objective 1: To know the users of boreholes per Village.
+
+borehole_malawi<-borehole_malawi |> 
+  rename(village_name=`Village name`,
+        bh_use_num= `How many households use (d) this hand pump borehole?`) 
+```
+
+```{r}
+#objective 2: To check if there is a relationship between the costs that were considered before setting the tariff and the amount that is agreed to be paid as a tariff per month now
+
+borehole_malawi<-borehole_malawi |>   
+  rename( tariff_costs_consider=`What costs were considered when setting the tariff or user fee?`,
+          tarrif_frequency=`How often is the tariff/user fee collected?`,
+         tariff_amount=`How much is the tariff/user fee (in Kwacha)?`) 
+```
+
+```{r}
+ #objective 3: To check if the actual tariff collected per month, distance to where borehole spare parts are, presence of a service provider and conducting  preventive maintenance lead to the functionality of boreholes
+
+  borehole_malawi<-borehole_malawi |> 
+  rename(tariff_hh_number=`How many households in the community paid a water fee the last time it was collected?`,
+         distance_to_spareparts= `How far away are (were) the materials you use for hand pump borehole repairs (ex. spare parts, tools, etc.)?`,
+        available_service_provider= `Is there a service provider or someone responsible for operating and/or maintaining this hand pump borehole or water system?...142`,
+        preventive_mantainance=`Do you conduct preventive maintenance?`,
+         bh_functional=`Functional status of the borehole`)
+```
+
+```{r}
+ #create a smaller dataset
+borehole_malawi_small<-borehole_malawi |> 
+  select(id,
+         date,
+        
+         village_name,                   #objective 1
+         bh_use_num,
+         
+    
+         tariff_costs_consider,
+         tarrif_frequency,               #objective2
+         tariff_amount, 
+       
+        
+         tariff_hh_number, 
+         distance_to_spareparts,
+         available_service_provider,     #objective 3
+         preventive_mantainance, 
+         bh_functional)
+
+```
+
+```{r}
+#data cleaning
+borehole_malawi_small<-borehole_malawi_small |> 
+  clean_names() |> 
+
+#remove the entries where the borehole no longer exists or abandoned
+  filter(bh_functional != 'No longer exists or abandoned')
+
+#recode functionality column
+borehole_malawi_small<-borehole_malawi_small |> 
+    mutate(
+        bh_functional = case_when(
+            bh_functional == "Functional" ~ "Yes",
+            bh_functional == "Not functional" ~ "No",
+           bh_functional== 'Partially functional but in need of repair'~"No"
+            
+        )
+    )
+  
+#village name to be factor
+#bhusenum to be int not double
+#tarrif costs consider to be faactor
+#tarrif frequency to be factor
+#tarrif amount to be int not dbl
+#tariff hh number to be int not dbl
+#distance to spare parts to be factor
+#availability of service provider to be factor
+#preventive mantainance to be factor
+#bh_functional tobe factor
+#convert categories that will be regressed into dummies (1/0)
+#change all Y/N into 1/0
+```
+
+```{r}
+
+#shorten accessible within the community but leave others unchaned
+borehole_malawi_small <- borehole_malawi_small %>% 
+  mutate(
+    distance_to_spareparts = case_when(
+    distance_to_spareparts == "Accessible within the community" ~ "Within community", 
+    TRUE ~ as.character(distance_to_spareparts)     
+    )
+  )
+
+#remove the records where village name is missing or Nb 
+borehole_malawi_small <- borehole_malawi_small %>% 
+  filter(!is.na(village_name) & village_name != "Nb")
+```
+
+```{r}
+#I think I have done the known ones, know let me do EDA to check every variable
+
+#explore(borehole_malawi_small)   #main EDA indicator
+
+#the number of people that uses a borehole
+
+borehole_malawi_small |>
+  group_by(village_name) |> #selected
+  summarise(bh_use_num) 
+
+```
+
+```{r}
+#village names were manually typed. I need to check the names for consistency and recode them
+
+# Summarize the borehole_malawi_small dataset by village_name
+summary_table <- borehole_malawi_small %>%
+  filter(!is.na(village_name) & village_name != "Nb") %>%
+  group_by(village_name) %>%
+  summarise(count = n()) %>%
+  kable()
+
+# Print the summary table
+print(summary_table)
+
+#recode the similar names with different spellings. I suspect data entry errors
+borehole_malawi_small <- borehole_malawi_small %>% 
+  mutate(
+    village_name = case_when(
+    village_name == "Mlirasaambo" ~ "Mlirasambo",
+     village_name == "Mlirasaambo" ~ "Mlirasaambo",
+    village_name == "Mulirasambo" ~ "Mlirasambo",
+    village_name == "Mugabi" ~ "Mugabe",
+    TRUE ~ as.character(village_name)     
+    )
+  )
+
+```
+
+```{r}
+#tariff amount
+#I will write a funcion  to handle the column with comments in it
+
+# Define the modify function
+modify <- function(dataset) {
+  dataset <- as.numeric(dataset)  # Convert the column to numeric to handle NAs
+  
+  # 1. Bring down values that are greater than 2000 to 2000
+  dataset[dataset > 2000] <- 2000
+  
+  # 2. When it finds values that have five digits, the last digit should be deleted
+  dataset <- ifelse(nchar(as.character(dataset)) == 5, as.numeric(substring(as.character(dataset), 1, 4)), dataset)
+  
+  # 3. When it finds a single number, it should add 2 zeros to it
+  dataset <- ifelse(dataset < 10, dataset * 100, dataset)
+  
+  return(dataset)
+}
+
+# Apply the modify function to the borehole_malawi_small dataset
+borehole_malawi_small$tariff_amount <- modify(borehole_malawi_small$tariff_amount)
+```
+
+```{r}
+#tariff_hh_number is variable that define the number of households that paid that month when the surveywas conducted in July.  If households are tagged that they drink water from a borehole but forthat time they did not pay, NAs should be Zero
+
+borehole_malawi_small <- borehole_malawi_small |> 
+  mutate(tariff_hh_number = replace_na(tariff_hh_number, 0))
+
+#same for tarrif amount
+borehole_malawi_small <- borehole_malawi_small |> 
+  mutate(tariff_amount = replace_na(tariff_amount, 0))
+
+#preventive mantainance
+borehole_malawi_small <- borehole_malawi_small |> 
+  mutate(preventive_mantainance = replace_na(preventive_mantainance,'No'))
+
+#if tarrif frequency is missing it means those people do not pay tarrif beause that question as not applicable to them. Therefore>None
+borehole_malawi_small <- borehole_malawi_small |> 
+  mutate(tarrif_frequency = replace_na(tarrif_frequency,'None'))
+
+#those who have NA on consideration for setting the tarrif are the ones that drink from boreholes that do not have tarrif system
+borehole_malawi_small <- borehole_malawi_small |> 
+  mutate(tariff_costs_consider = replace_na(tariff_costs_consider,'No tarrif system set'))
+```
+
+I change the values below because they will go into regression model
+
+## Binary
+
+```{r}
+# Replace Yes/No with 1/0 in multiple columns
+borehole_malawi_small <- borehole_malawi_small %>%
+  mutate_at(vars(available_service_provider:bh_functional), ~ifelse(. == "Yes", 1, 0))
+```
+
+## Dummies
+
+```{r}
+borehole_malawi_small<- dummy_cols(borehole_malawi_small, select_columns = c("distance_to_spareparts", "tarrif_frequency")) |> 
+  clean_names()
+```
+
+# Analysis ready data
+
+```{r}
+# Write the borehole_malawi_small dataset to a CSV file
+write_csv(borehole_malawi_small, here("data/processed", "borehole_malawi_small.csv"))
 ```
