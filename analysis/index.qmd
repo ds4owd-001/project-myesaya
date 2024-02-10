@@ -1,0 +1,61 @@
+---
+title: "Determinants of borehole' functionality in Northen Malawi"
+author:
+  - name: "Mabvuto Yesaya"
+    orcid: "0000-0003-3234-9699"
+    affiliation: "Malawi University of Business and Applied Sciences, Malawi"
+    authornote: "ORCID: 0000-0003-3234-9699"
+date: "2024-02-10"
+bibliography: "../references.bib"
+toc: true
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+
+# library
+#data wrangling, tidying,column mutations etc
+library(tidyverse)
+
+#clean column names
+library (janitor)
+
+#for EDA
+library(explore)
+
+#here here package
+library(here)
+
+#making simple tables
+library(knitr)
+
+library(dplyr)
+
+#for making dummy variables
+library(fastDummies)
+```
+
+```{r}
+#| echo: false
+#load data
+
+borehole_malawi <- read_csv(here::here ("data/processed", "borehole_malawi_small.csv"))
+```
+
+# Introduction
+
+As the case with least developed countries in the global south, Malawi relies on Hand-pumped borehole water for drinking and serves more than 20% of the population (ref-grimason) . Studies have found that a significant number of boreholes in Malawi contain elevated levels of contaminants such as fluoride, nitrate, iron, and chlorides, which may exceed the safe limits for drinking water set by the World Health Organization (ref-chimpamba).  
+
+A study was done in TA Wasambo in Karonga district (Northern Malawi) in 2023 on handpump borehole functionality.  Although the donor community keep funding these sources of water, (ref-ward) noted that there are issues with the sustainability of the projects. Therefore, the capstone project aims to explore factors that affect borehole sustainability.  
+
+## Methods
+
+## Results
+
+## Conclusions
+
+## References
