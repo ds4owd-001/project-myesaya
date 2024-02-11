@@ -115,7 +115,8 @@ borehole_malawi<-borehole_malawi |>
          distance_to_spareparts= `How far away are (were) the materials you use for hand pump borehole repairs (ex. spare parts, tools, etc.)?`,
         available_service_provider= `Is there a service provider or someone responsible for operating and/or maintaining this hand pump borehole or water system?...142`,
         preventive_mantainance=`Do you conduct preventive maintenance?`,
-         bh_functional=`Functional status of the borehole`)
+         bh_functional=`Functional status of the borehole`,
+        role="Main role of the respondent")
 ```
 
 ```{r}
@@ -123,6 +124,7 @@ borehole_malawi<-borehole_malawi |>
 borehole_malawi_small<-borehole_malawi |> 
   select(id,
          date,
+         role, #respondents tree map
         
          village_name,                   #objective 1
          bh_use_num,
@@ -238,6 +240,8 @@ borehole_malawi_small <- borehole_malawi_small %>%
     TRUE ~ as.character(tariff_costs_consider)     
     )
   )
+
+ 
 ```
 
 ```{r}

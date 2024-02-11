@@ -81,6 +81,31 @@ The study employed a stratified random sampling technique where 29 villages were
 
 # Results
 
+Respondents
+
+```{r}
+#treemap for waste composition with the percentages in brackets
+
+borehole_data %>%
+  group_by(role) %>%
+   summarise(n = n()) |> 
+
+
+  mutate(percent = scales::percent(n/sum(n), accuracy = 1.0)) %>%
+  ggplot(aes(area = n, fill = role, label = paste(role, "\n", "(", percent, ")", sep = ""))) +
+  geom_treemap(show.legend = FALSE) +
+  geom_treemap_text(colour = "black", place = "centre", size = 12,
+                    aes(label = paste(role, "\n", "(", percent, ")", sep = ""))) +
+  labs(
+    fill = "Waste categories") +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5),
+        plot.caption = element_text(hjust = 0.5)) +
+  scale_fill_brewer(palette = "Set3")
+```
+
+## make gt table
+
 ```{r}
 
 #|code_folding: show
