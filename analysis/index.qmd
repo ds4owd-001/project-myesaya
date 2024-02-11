@@ -9,12 +9,13 @@ date: "2024-02-10"
 bibliography: "../references.bib"
 toc: true
 format: html
+code-fold: true
 editor: visual
 editor_options: 
   chunk_output_type: console
 ---
 
-```{r}
+```{r,echo=FALSE, results='hide'}
 #| echo: false
 
 # library
@@ -81,7 +82,8 @@ The study employed a stratified random sampling technique where 29 villages were
 # Results
 
 ```{r}
-#| echo: false
+
+#|code_folding: show
 
 # a dataset for a plot
 borehole_user <- borehole_data %>%
@@ -145,9 +147,24 @@ ggplot(scatter,aes(x=tariff_costs_consider, y=tariff_amount,fill=tariff_costs_co
         axis.text.y = element_text(size = 13)) 
 ```
 
-```{}
+```{r}
+library(stargazer)
+
+#small dataset for ols
+ols <- borehole_data |> 
+  select(available_service_provider:tarrif_frequency_when_required_for_repairs)
+
+
+mod=lm(bh_functional~ .,data = ols)
+
+stargazer(mod,type = "text",report=("vc*p"),model.names = TRUE)
+
 ```
 
 # Conclusions
 
 # References
+
+```{r}
+
+```

@@ -1,0 +1,33 @@
+---
+format: html
+code-fold: true
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+library(palmerpenguins)
+library(ggplot2)
+
+penguins<- penguins
+
+# Create a scatter plot
+ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+  geom_point() +
+  labs(title = "Penguin Body Mass vs. Bill Length", x = "Body Mass (g)", y = "Bill Length (mm)")
+
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
