@@ -37,13 +37,19 @@ library(dplyr)
 
 #for making dummy variables
 library(fastDummies)
+
+library(ggplot2)
+library(unhcrthemes)
+library(dplyr)
+library(tidyr)
+library(scales)
 ```
 
 ```{r}
 #| echo: false
 #load data
 
-borehole_malawi <- read_csv(here::here ("data/processed", "borehole_malawi_small.csv"))
+borehole_data <- read_csv(here::here ("data/processed", "borehole_malawi_small.csv"))
 ```
 
 # Introduction
@@ -56,7 +62,7 @@ A study was done in TA Wasambo in Karonga district (Northern Malawi) in 2023 on 
 
 The data were collected in Karonga district in TA Wasambo. Two (2) trained enumerators administered 20-minute questionnaires installed on koboTooolbox to collect the borehole functionality data from 300 respondents aged 18 and above. Questions included the borehole maintainance contributions from the community, the availability of borehole spare parts, and borehole management.
 
-The study employed stratified random sampling technique where 20/30 villages were purposively sampled based on the availability of boreholes. Then, households from each village were randomly sampled based on the Probability Proportional to Size (PPS)[^1], where the sample sizes vary across clusters.
+The study employed a stratified random sampling technique where 29 villages were purposively sampled based on the availability of boreholes. Then, households from each village were randomly sampled based on Probability Proportional to Size (PPS)[^1], where the sample sizes varied across clusters.
 
 [^1]: A sampling method where the probability of selecting a unit from the population is directly proportional to its size or measure of importance
 
@@ -69,6 +75,45 @@ The study employed stratified random sampling technique where 20/30 villages wer
 3.  To check if the actual tariff collected per month, tariff collection frequency, distance to where borehole spare parts are, presence of a service provider, actual tariff collected and conducting preventive maintenance lead to the functionality of boreholes
 
 # Results
+
+```{r}
+#| echo: false
+
+# a dataset for a plot
+borehole_user <- borehole_data %>%
+  group_by(village_name) %>%
+  summarise(bh_use_num = sum(bh_use_num, na.rm = TRUE))
+```
+
+```{r}
+ggplot(borehole_user) +
+  geom_col(aes(
+    x = bh_use_num,
+    y = reorder(village_name, bh_use_num)
+  ),
+  fill = unhcr_pal(n = 1, "pal_blue"),
+  width = 0.8
+  ) +
+  geom_text(aes(
+    x = bh_use_num,
+    y = reorder(village_name, bh_use_num),
+    label = round(bh_use_num)
+  ),
+  hjust = -0.5,
+  size = 8 / .pt
+  ) +
+  labs(
+    title = "Number of households that use boreholes per village",
+    
+  ) +
+  scale_x_continuous(expand = expansion(c(0, 0.1))) +
+  theme_unhcr(
+    grid = FALSE,
+    axis = "y",
+    axis_title = FALSE,
+    axis_text = "y"
+  )
+```
 
 # Conclusions
 
