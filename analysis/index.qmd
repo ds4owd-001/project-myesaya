@@ -43,6 +43,10 @@ library(unhcrthemes)
 library(dplyr)
 library(tidyr)
 library(scales)
+
+library(treemapify)
+
+library(treemap)
 ```
 
 ```{r}
@@ -113,6 +117,35 @@ ggplot(borehole_user) +
     axis_title = FALSE,
     axis_text = "y"
   )
+```
+
+\
+
+```{r}
+scatter <- borehole_data %>%
+  filter(tariff_amount!=0 & total_money!=0) |> 
+  select(tariff_costs_consider,tariff_amount)
+```
+
+```{r}
+#households vs amount
+
+ggplot(scatter,aes(x=tariff_costs_consider, y=tariff_amount,fill=tariff_costs_consider))+
+  geom_violin()+
+  theme(legend.position = "None")+
+  labs(
+    title="Distribution of the collected user tariff fee across different reasons of setting them",
+    x="Basis for setting a tariff system",
+    y="Amount of tariff per month (MWK)"
+  )+
+   theme(plot.title = element_text(size = 16),
+        axis.title.x = element_text(size = 13),
+        axis.title.y = element_text(size = 13),
+        axis.text.x = element_text(size = 13),
+        axis.text.y = element_text(size = 13)) 
+```
+
+```{}
 ```
 
 # Conclusions

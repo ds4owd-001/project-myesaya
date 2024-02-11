@@ -101,7 +101,10 @@ borehole_malawi<-borehole_malawi |>
 borehole_malawi<-borehole_malawi |>   
   rename( tariff_costs_consider=`What costs were considered when setting the tariff or user fee?`,
           tarrif_frequency=`How often is the tariff/user fee collected?`,
-         tariff_amount=`How much is the tariff/user fee (in Kwacha)?`) 
+         tariff_amount=`How much is the tariff/user fee (in Kwacha)?`,
+         total_money=`How much do you source to support operations and maintenance annually?`) 
+
+
 ```
 
 ```{r}
@@ -127,8 +130,8 @@ borehole_malawi_small<-borehole_malawi |>
     
          tariff_costs_consider,
          tarrif_frequency,               #objective2
-         tariff_amount, 
-       
+         tariff_amount,
+         total_money,
         
          tariff_hh_number, 
          distance_to_spareparts,
@@ -225,6 +228,16 @@ borehole_malawi_small <- borehole_malawi_small %>%
     )
   )
 
+#######################################
+#recode the similar names with different spellings. I suspect data entry errors
+borehole_malawi_small <- borehole_malawi_small %>% 
+  mutate(
+    tariff_costs_consider = case_when(
+    tariff_costs_consider == "Affordability Maintenance costs" ~ "Maintenance costs",
+     tariff_costs_consider == "Total replacement cost for the system" ~ "Maintenance costs",
+    TRUE ~ as.character(tariff_costs_consider)     
+    )
+  )
 ```
 
 ```{r}
