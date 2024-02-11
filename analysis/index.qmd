@@ -52,10 +52,24 @@ As the case with least developed countries in the global south, Malawi relies on
 
 A study was done in TA Wasambo in Karonga district (Northern Malawi) in 2023 on handpump borehole functionality.  Although the donor community keep funding these sources of water, (ref-ward) noted that there are issues with the sustainability of the projects. Therefore, the capstone project aims to explore factors that affect borehole sustainability.  
 
-## Methods
+# Methods
 
-## Results
+The data were collected in Karonga district in TA Wasambo. Two (2) trained enumerators administered 20-minute questionnaires installed on koboTooolbox to collect the borehole functionality data from 300 respondents aged 18 and above. Questions included the borehole maintainance contributions from the community, the availability of borehole spare parts, and borehole management.
 
-## Conclusions
+The study employed stratified random sampling technique where 20/30 villages were purposively sampled based on the availability of boreholes. Then, households from each village were randomly sampled based on the Probability Proportional to Size (PPS)[^1], where the sample sizes vary across clusters.
 
-## References
+[^1]: A sampling method where the probability of selecting a unit from the population is directly proportional to its size or measure of importance
+
+## **Objectives**
+
+1.  To know the users of boreholes per village.
+
+2.  To check if there is a relationship between the costs that were considered before setting the tariff and the amount that is agreed to be paid as a tariff per month now
+
+3.  To check if the actual tariff collected per month, tariff collection frequency, distance to where borehole spare parts are, presence of a service provider, actual tariff collected and conducting preventive maintenance lead to the functionality of boreholes
+
+# Results
+
+# Conclusions
+
+# References
