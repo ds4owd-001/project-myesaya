@@ -145,7 +145,8 @@ ggplot(borehole_user) +
   size = 8 / .pt
   ) +
   labs(
-    title = "Number of households that use borehole a borehole",
+    title = "Households using borehole",
+    caption = "Boreholes distributed oer a borehole comitee name"
     
   ) +
   scale_x_continuous(expand = expansion(c(0, 0.1))) +
