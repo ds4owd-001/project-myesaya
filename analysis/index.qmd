@@ -120,6 +120,10 @@ borehole_data %>%
 ```
 
 ```{r}
+
+#| label: fig-respondents
+#| fig-cap: "Distribution of respondents"
+
 borehole_user <- borehole_data %>%
   group_by(village_name) %>%
   summarise(bh_use_num = sum(bh_use_num, na.rm = TRUE))
@@ -141,7 +145,7 @@ ggplot(borehole_user) +
   size = 8 / .pt
   ) +
   labs(
-    title = "Number of households that use boreholes per village",
+    title = "Number of households that use borehole a borehole",
     
   ) +
   scale_x_continuous(expand = expansion(c(0, 0.1))) +
