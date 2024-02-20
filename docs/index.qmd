@@ -15,9 +15,9 @@ editor_options:
 
 # Project description
 
-The data is from TA Wasambo in Karonga district (Northen Malawi). This data is for boreholes/handpumps that people mostly rely on for drinking water collection, secondary to wells and rivers. The data were collected in June 2013, and my interests are:
+The data is from TA Wasambo in Karonga district (Northen Malawi). This data is for boreholes and handpumps that people mostly rely on for drinking water collection, secondary to wells and rivers. The data were collected in June 2013, and my interests are:
 
-**Objectives**
+**Objectives (placeholder)**
 
 1.  To know the users of boreholes per village.
 
@@ -25,13 +25,7 @@ The data is from TA Wasambo in Karonga district (Northen Malawi). This data is f
 
 3.  To check if the actual tariff collected per month, tariff collection frequency, distance to where borehole spare parts are, presence of a service provider, actual tariff collected and conducting preventive maintenance lead to the functionality of boreholes
 
-The goal of this document is to explore, clean, and select the final variables from the borehole Malawi dataset. The selected variables will be used in:
-
-1.  Analysis
-
-2.  Codebook
-
-3.  Making R package
+The goal of this document is to explore, clean, and select the final variables from the borehole Malawi dataset.
 
 # Import data
 
@@ -63,7 +57,7 @@ library(fastDummies)
 #read_csv or read_csv2 to read in a ; separated file does not work for me after consulting perplexity ai for multiple times. In the meantime, I will use read_delim. 
 
 borehole_malawi_raw <- read_delim("/cloud/project/data/raw/Borehole_Malawi_-_all_versions_-_labels_-_2023-12-31-03-34-25.csv",
-                            delim = ";")
+                            delim = ";") |> glimpse()
 
 ```
 
@@ -83,7 +77,10 @@ mutate(id = seq(1:n())) |>
 
 borehole_malawi<-borehole_malawi |> 
   rename(id=id,
-         date=today)  
+         date=today,
+         active_ppo=`How many people are on the Hand pump borehole Committee?`,
+         last_meeting_wash=`About how many community members attended the last meeting? (99 is don’t know)`,
+         annual_om=`How much money do u need to manage this borehole without financial problems annually?`)  
 
 ```
 
@@ -125,6 +122,12 @@ borehole_malawi_small<-borehole_malawi |>
   select(id,
          date,
          role, #respondents tree map
+         
+         active_ppo,
+         last_meeting_wash,
+         annual_om,
+         
+         #summary stats
         
          village_name,                   #objective 1
          bh_use_num,
@@ -291,7 +294,7 @@ borehole_malawi_small <- borehole_malawi_small |>
   mutate(tariff_costs_consider = replace_na(tariff_costs_consider,'No tarrif system set'))
 ```
 
-I change the values below because they will go into regression model
+I changed the values below because they will go into regression model
 
 ## Binary
 
@@ -308,7 +311,7 @@ borehole_malawi_small<- dummy_cols(borehole_malawi_small, select_columns = c("di
   clean_names()
 ```
 
-# Analysis ready data
+# Analysis-ready data
 
 ```{r}
 # Write the borehole_malawi_small dataset to a CSV file

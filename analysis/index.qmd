@@ -11,6 +11,7 @@ toc: true
 output:
   html_document:
     fig_caption: true
+    tbl_caption: true
 warning: false
 code-fold: true
 editor: visual
@@ -49,6 +50,7 @@ library(tidyr)
 library(scales)
 
 library(treemapify)
+library(stargazer)
 
 library(treemap)
 ```
@@ -70,9 +72,7 @@ A study on handpump borehole functionality was done in TA Wasambo in Karonga dis
 
 The data were collected in Karonga district, TA Wasambo. Two (2) trained enumerators administered 20-minute questionnaires installed on koboTooolbox ([www.kobotoolbox.org](www.kobotoolbox.org)) to collect borehole functionality data from 300 respondents aged 18 and above. Questions included the borehole maintenance contributions from the community, the availability of borehole spare parts, and borehole management.
 
-The study employed a stratified random sampling technique where 29 villages were purposively sampled based on the availability of boreholes. Then, households from each village were randomly sampled based on Probability Proportional to Size (PPS)[^1] estimate, where the sample sizes varied across clusters.
-
-[^1]: A sampling method where the probability of selecting a unit from the population is directly proportional to its size or measure of importance
+The study employed a stratified random sampling technique where 29 villages were purposively sampled based on the availability of boreholes. Then, each borehole water point committee was selected and included in the sample, i.e. one committee could be responsible for multiple villages.
 
 ## **Objectives**
 
@@ -101,7 +101,7 @@ borehole_data %>%
   geom_treemap(show.legend = FALSE) +
   geom_treemap_text(colour = "black", place = "centre", size = 12,
                     aes(label = paste(role, "\n", "(", percent, ")", sep = ""))) +
-  labs(
+  labs(title="Distribution of the survey respondents",
     fill = "Waste categories") +
   theme(plot.title = element_text(hjust = 0.5),
         plot.subtitle = element_text(hjust = 0.5),
@@ -109,20 +109,15 @@ borehole_data %>%
   scale_fill_brewer(palette = "Set3")
 ```
 
-## make gt table
+\
+
+## Distribution of boles per water point committee.
+
+A total of 19 Water Point Committees manage boreholes in TA Wasambo. Each Water Point Committee manages particular boreholes. The distribution of the villagers who draw water managed by a particular water point committee has been shown in @fig-bh
 
 ```{r}
-
-#|code_folding: show
-
-# a dataset for a plot
-
-```
-
-```{r}
-
-#| label: fig-respondents
-#| fig-cap: "Distribution of respondents"
+#| label: fig-bh
+#| fig-cap: "Distribution of boreholes per Water Point Comitee"
 
 borehole_user <- borehole_data %>%
   group_by(village_name) %>%
@@ -146,7 +141,7 @@ ggplot(borehole_user) +
   ) +
   labs(
     title = "Households using borehole",
-    caption = "Boreholes distributed oer a borehole comitee name"
+    caption = "Boreholes distributed per a borehole comitee name"
     
   ) +
   scale_x_continuous(expand = expansion(c(0, 0.1))) +
@@ -158,22 +153,23 @@ ggplot(borehole_user) +
   )
 ```
 
-\
+## Basis for setting a user fee
+
+There were 2 main reasons for setting a user fee. The user fee is set based on what the borehole users can afford or based on the mantainance needs for the system. However, in what ever the basis could be, there is not a difference in the amount collected as the median value is around MWK 500 as shown in @fig-amount
 
 ```{r}
+#| label: fig-amount
+#| fig-cap: "Reasons for setting a tariff"
+
 scatter <- borehole_data %>%
   filter(tariff_amount!=0 & total_money!=0) |> 
   select(tariff_costs_consider,tariff_amount)
-```
-
-```{r}
-#households vs amount
 
 ggplot(scatter,aes(x=tariff_costs_consider, y=tariff_amount,fill=tariff_costs_consider))+
   geom_violin()+
   theme(legend.position = "None")+
   labs(
-    title="Distribution of the collected user tariff fee across different reasons of setting them",
+    title="Distribution of the collected user tariff fee",
     x="Basis for setting a tariff system",
     y="Amount of tariff per month (MWK)"
   )+
@@ -184,10 +180,14 @@ ggplot(scatter,aes(x=tariff_costs_consider, y=tariff_amount,fill=tariff_costs_co
         axis.text.y = element_text(size = 13)) 
 ```
 
-```{r}
-library(stargazer)
+## Functionality of boreholes
 
-#small dataset for ols
+Several factors were seen to be corelated with the functionality of boreholes. When the distance to buy spareparts was 20 km away, a 1 unit increase in the distance decreased the probability of borehole functionality by 50 percentage points (p=0.01)0 And if there was no collection of borehole tariff money, the percentage of a borehole being functional also decreased by 50 percentage points. The Model has been shown in @tbl-iris
+
+```{r}
+#| label: tbl-regression
+#| tbl-cap: Factors associated with borehole functionality.
+
 ols <- borehole_data |> 
   select(available_service_provider:tarrif_frequency_when_required_for_repairs)
 
@@ -200,8 +200,4 @@ stargazer(mod,type = "text",report=("vc*p"),model.names = TRUE)
 
 # Conclusions
 
-# References
-
-```{r}
-
-```
+Many factors come into play as far as the functionality of boreholes is concerned. The more people use a borehole, the more likely it is that the borehole will become non-functional. Also, the fees collected from the boreholes should be regularly collected as agreed, mostly every month. A gap of more than a month in fee collection contributes to borehole non functionality. It is recommended that social enterprises work on bringing borehole spare parts closer to the village (or perhaps right in the village) because when the borehole spare parts are sourced from far away, the chances of non-repair are high.
