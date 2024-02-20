@@ -107,6 +107,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
   <ul class="collapse">
+  <li><a href="#survey-respondents" id="toc-survey-respondents" class="nav-link" data-scroll-target="#survey-respondents">Survey Respondents</a></li>
   <li><a href="#make-gt-table" id="toc-make-gt-table" class="nav-link" data-scroll-target="#make-gt-table">make gt table</a></li>
   </ul></li>
   <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
@@ -154,13 +155,13 @@ div.csl-indent {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>As the case with least developed countries in the global south, Malawi relies on Hand-pumped borehole water for drinking and serves more than 20% of the population <span class="citation" data-cites="grimasonClassificationQualityGroundwater2013a">(<a href="#ref-grimasonClassificationQualityGroundwater2013a" role="doc-biblioref">Grimason et al. 2013</a>)</span>. Studies have found that a significant number of boreholes in Malawi contain elevated levels of contaminants such as fluoride, nitrate, iron, and chlorides, which may exceed the safe limits for drinking water set by the World Health Organization <span class="citation" data-cites="chimphamba2014borehole">(<a href="#ref-chimphamba2014borehole" role="doc-biblioref">Chimphamba and Phiri 2014</a>)</span></p>
-<p>A study was done in TA Wasambo in Karonga district (Northern Malawi) in 2023 on handpump borehole functionality. &nbsp;Although the donor community keep funding these sources of water, <span class="citation" data-cites="ward2020largescale">Ward et al. (<a href="#ref-ward2020largescale" role="doc-biblioref">2020</a>)</span> noted that there are issues with the sustainability of the projects. Therefore, the capstone project aims to explore factors that affect borehole sustainability. &nbsp;</p>
+<p>As is the case with least developed countries in the global south, Malawi relies on hand-pumped borehole water for drinking and serves more than 86% of the population <span class="citation" data-cites="kumwenda2023triggering grimasonClassificationQualityGroundwater2013a">(<a href="#ref-kumwenda2023triggering" role="doc-biblioref">Kumwenda et al. 2023</a>; <a href="#ref-grimasonClassificationQualityGroundwater2013a" role="doc-biblioref">Grimason et al. 2013</a>)</span>. Studies have found that a significant number of boreholes in Malawi contain elevated levels of contaminants such as fluoride, nitrate, iron, and chlorides, which may exceed the safe limits for drinking water set by the World Health Organization <span class="citation" data-cites="chimphamba2014borehole">(<a href="#ref-chimphamba2014borehole" role="doc-biblioref">Chimphamba and Phiri 2014</a>)</span></p>
+<p>A study on handpump borehole functionality was done in TA Wasambo in Karonga district (Northern Malawi) in 2023. &nbsp;Although the donor community keeps funding these sources of water, <span class="citation" data-cites="ward2020largescale">Ward et al. (<a href="#ref-ward2020largescale" role="doc-biblioref">2020</a>)</span> noted that there are issues with the sustainability of the projects. Therefore, the capstone project aims to explore factors that affect borehole sustainability. &nbsp;</p>
 </section>
 <section id="methods" class="level1">
 <h1>Methods</h1>
-<p>The data were collected in Karonga district in TA Wasambo. Two (2) trained enumerators administered 20-minute questionnaires installed on koboTooolbox to collect the borehole functionality data from 300 respondents aged 18 and above. Questions included the borehole maintainance contributions from the community, the availability of borehole spare parts, and borehole management.</p>
-<p>The study employed a stratified random sampling technique where 29 villages were purposively sampled based on the availability of boreholes. Then, households from each village were randomly sampled based on Probability Proportional to Size (PPS)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, where the sample sizes varied across clusters.</p>
+<p>The data were collected in Karonga district, TA Wasambo. Two (2) trained enumerators administered 20-minute questionnaires installed on koboTooolbox (<a href="www.kobotoolbox.org">www.kobotoolbox.org</a>) to collect borehole functionality data from 300 respondents aged 18 and above. Questions included the borehole maintenance contributions from the community, the availability of borehole spare parts, and borehole management.</p>
+<p>The study employed a stratified random sampling technique where 29 villages were purposively sampled based on the availability of boreholes. Then, households from each village were randomly sampled based on Probability Proportional to Size (PPS)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> estimate, where the sample sizes varied across clusters.</p>
 <section id="objectives" class="level2">
 <h2 class="anchored" data-anchor-id="objectives"><strong>Objectives</strong></h2>
 <ol type="1">
@@ -172,33 +173,37 @@ div.csl-indent {
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
-<p>Respondents</p>
+<section id="survey-respondents" class="level2">
+<h2 class="anchored" data-anchor-id="survey-respondents">Survey Respondents</h2>
+<p>A total of 198 surveys were conducted, where each survey targeted a particular borehole. In the villages, as the interest was in the boreholes, the required information was, therefore, sourced from respondents who were better able to supply the required information. The distribution of the survey respondents has been shown in <a href="#fig-respondents">Figure&nbsp;1</a></p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#treemap for waste composition with the percentages in brackets</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>borehole_data <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(role) <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> scales<span class="sc">::</span><span class="fu">percent</span>(n<span class="sc">/</span><span class="fu">sum</span>(n), <span class="at">accuracy =</span> <span class="fl">1.0</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">area =</span> n, <span class="at">fill =</span> role, <span class="at">label =</span> <span class="fu">paste</span>(role, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"("</span>, percent, <span class="st">")"</span>, <span class="at">sep =</span> <span class="st">""</span>))) <span class="sc">+</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">place =</span> <span class="st">"centre"</span>, <span class="at">size =</span> <span class="dv">12</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(role, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"("</span>, percent, <span class="st">")"</span>, <span class="at">sep =</span> <span class="st">""</span>))) <span class="sc">+</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Waste categories"</span>) <span class="sc">+</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>borehole_data <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(role) <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> scales<span class="sc">::</span><span class="fu">percent</span>(n<span class="sc">/</span><span class="fu">sum</span>(n), <span class="at">accuracy =</span> <span class="fl">1.0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">area =</span> n, <span class="at">fill =</span> role, <span class="at">label =</span> <span class="fu">paste</span>(role, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"("</span>, percent, <span class="st">")"</span>, <span class="at">sep =</span> <span class="st">""</span>))) <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_treemap_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">place =</span> <span class="st">"centre"</span>, <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste</span>(role, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, <span class="st">"("</span>, percent, <span class="st">")"</span>, <span class="at">sep =</span> <span class="st">""</span>))) <span class="sc">+</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Waste categories"</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<div id="fig-respondents" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/fig-respondents-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Distribution of respondents</figcaption>
+</figure>
 </div>
 </div>
+</div>
+</section>
 <section id="make-gt-table" class="level2">
 <h2 class="anchored" data-anchor-id="make-gt-table">make gt table</h2>
 <div class="cell">
@@ -369,6 +374,9 @@ Chimphamba, J B, and O L Phiri. 2014. <span>“Borehole <span>Water Pollution</s
 </div>
 <div id="ref-grimasonClassificationQualityGroundwater2013a" class="csl-entry" role="listitem">
 Grimason, Am, Tk Beattie, Sj Masangwi, Gc Jabu, Sc Taulo, and Kk Lungu. 2013. <span>“Classification and Quality of Groundwater Supplies in the <span>Lower Shire Valley</span>, <span>Malawi</span> <span></span> <span>Part</span> 2: <span>Classification</span> of Borehole Water Supplies in <span>Chikhwawa</span>, <span>Malawi</span>.”</span> <em>Water SA</em> 39 (4): 573–82. <a href="https://doi.org/10.4314/wsa.v39i4.17">https://doi.org/10.4314/wsa.v39i4.17</a>.
+</div>
+<div id="ref-kumwenda2023triggering" class="csl-entry" role="listitem">
+Kumwenda, Steve, Muthi Nhlema, Given Ngwira, Peter Banda, and Tony Nyasulu. 2023. <span>“Triggering Social Accountability for Failed Groundwater Supply Infrastructure in Rural <span>Malawi</span>: <span>Chiradzulu</span> Case Study.”</span> Other. <span>display</span>. <a href="https://doi.org/10.5194/egusphere-egu23-891">https://doi.org/10.5194/egusphere-egu23-891</a>.
 </div>
 <div id="ref-ward2020largescale" class="csl-entry" role="listitem">
 Ward, Jade S. T., Daniel J. Lapworth, Daniel S. Read, Steve Pedley, Sembeyawo T. Banda, Maurice Monjerezi, Gloria Gwengweya, and Alan M. MacDonald. 2020. <span>“Large-Scale Survey of Seasonal Drinking Water Quality in <span>Malawi</span> Using in Situ Tryptophan-Like Fluorescence and Conventional Water Quality Indicators.”</span> <em>Science of The Total Environment</em> 744 (1): 1–12. <a href="https://doi.org/10.1016/j.scitotenv.2020.140674">https://doi.org/10.1016/j.scitotenv.2020.140674</a>.

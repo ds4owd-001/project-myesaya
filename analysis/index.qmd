@@ -8,7 +8,9 @@ author:
 date: "2024-02-10"
 bibliography: "../references.bib"
 toc: true
-format: html
+output:
+  html_document:
+    fig_caption: true
 warning: false
 code-fold: true
 editor: visual
@@ -60,13 +62,13 @@ borehole_data <- read_csv(here::here ("data/processed", "borehole_malawi_small.c
 
 # Introduction
 
-As is the case with least developed countries in the global south, Malawi relies on hand-pumped borehole water for drinking and serves more than 86% of the population [@kumwenda2023triggering][@grimasonClassificationQualityGroundwater2013a]. Studies have found that a significant number of boreholes in Malawi contain elevated levels of contaminants such as fluoride, nitrate, iron, and chlorides, which may exceed the safe limits for drinking water set by the World Health Organization [@chimphamba2014borehole]
+As is the case with least developed countries in the global south, Malawi relies on hand-pumped borehole water for drinking and serves more than 86% of the population [@kumwenda2023triggering; @grimasonClassificationQualityGroundwater2013a]. Studies have found that a significant number of boreholes in Malawi contain elevated levels of contaminants such as fluoride, nitrate, iron, and chlorides, which may exceed the safe limits for drinking water set by the World Health Organization [@chimphamba2014borehole]
 
 A study on handpump borehole functionality was done in TA Wasambo in Karonga district (Northern Malawi) in 2023.  Although the donor community keeps funding these sources of water, @ward2020largescale noted that there are issues with the sustainability of the projects. Therefore, the capstone project aims to explore factors that affect borehole sustainability.  
 
 # Methods
 
-The data were collected in Karonga district in TA Wasambo. Two (2) trained enumerators administered 20-minute questionnaires installed on koboTooolbox ([www.kobotoolbox.org](www.kobotoolbox.org)) to collect borehole functionality data from 300 respondents aged 18 and above. Questions included the borehole maintenance contributions from the community, the availability of borehole spare parts, and borehole management.
+The data were collected in Karonga district, TA Wasambo. Two (2) trained enumerators administered 20-minute questionnaires installed on koboTooolbox ([www.kobotoolbox.org](www.kobotoolbox.org)) to collect borehole functionality data from 300 respondents aged 18 and above. Questions included the borehole maintenance contributions from the community, the availability of borehole spare parts, and borehole management.
 
 The study employed a stratified random sampling technique where 29 villages were purposively sampled based on the availability of boreholes. Then, households from each village were randomly sampled based on Probability Proportional to Size (PPS)[^1] estimate, where the sample sizes varied across clusters.
 
@@ -82,16 +84,18 @@ The study employed a stratified random sampling technique where 29 villages were
 
 # Results
 
-Respondents
+## Survey Respondents
+
+A total of 198 surveys were conducted, where each survey targeted a particular borehole. In the villages, as the interest was in the boreholes, the required information was, therefore, sourced from respondents who were better able to supply the required information. The distribution of the survey respondents has been shown in @fig-respondents
 
 ```{r}
-#treemap for waste composition with the percentages in brackets
+#| label: fig-respondents
+#| fig-cap: "Distribution of respondents"
+
 
 borehole_data %>%
   group_by(role) %>%
    summarise(n = n()) |> 
-
-
   mutate(percent = scales::percent(n/sum(n), accuracy = 1.0)) %>%
   ggplot(aes(area = n, fill = role, label = paste(role, "\n", "(", percent, ")", sep = ""))) +
   geom_treemap(show.legend = FALSE) +
