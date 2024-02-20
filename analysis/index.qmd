@@ -59,9 +59,9 @@ borehole_data <- read_csv(here::here ("data/processed", "borehole_malawi_small.c
 
 # Introduction
 
-As the case with least developed countries in the global south, Malawi relies on Hand-pumped borehole water for drinking and serves more than 20% of the population (ref-grimason) . Studies have found that a significant number of boreholes in Malawi contain elevated levels of contaminants such as fluoride, nitrate, iron, and chlorides, which may exceed the safe limits for drinking water set by the World Health Organization (ref-chimpamba).  
+As the case with least developed countries in the global south, Malawi relies on Hand-pumped borehole water for drinking and serves more than 20% of the population [@grimasonClassificationQualityGroundwater2013a]. Studies have found that a significant number of boreholes in Malawi contain elevated levels of contaminants such as fluoride, nitrate, iron, and chlorides, which may exceed the safe limits for drinking water set by the World Health Organization [@chimphamba2014borehole]
 
-A study was done in TA Wasambo in Karonga district (Northern Malawi) in 2023 on handpump borehole functionality.  Although the donor community keep funding these sources of water, (ref-ward) noted that there are issues with the sustainability of the projects. Therefore, the capstone project aims to explore factors that affect borehole sustainability.  
+A study was done in TA Wasambo in Karonga district (Northern Malawi) in 2023 on handpump borehole functionality.  Although the donor community keep funding these sources of water, @ward2020largescale noted that there are issues with the sustainability of the projects. Therefore, the capstone project aims to explore factors that affect borehole sustainability.  
 
 # Methods
 
@@ -111,12 +111,14 @@ borehole_data %>%
 #|code_folding: show
 
 # a dataset for a plot
-borehole_user <- borehole_data %>%
-  group_by(village_name) %>%
-  summarise(bh_use_num = sum(bh_use_num, na.rm = TRUE))
+
 ```
 
 ```{r}
+borehole_user <- borehole_data %>%
+  group_by(village_name) %>%
+  summarise(bh_use_num = sum(bh_use_num, na.rm = TRUE))
+
 ggplot(borehole_user) +
   geom_col(aes(
     x = bh_use_num,
