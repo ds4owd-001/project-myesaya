@@ -53,6 +53,9 @@ library(treemapify)
 library(stargazer)
 
 library(treemap)
+
+library(gtsummary)
+library(gt)
 ```
 
 ```{r}
@@ -109,7 +112,35 @@ borehole_data %>%
   scale_fill_brewer(palette = "Set3")
 ```
 
-\
+## Summary statistics
+
+Each borehole has an average of 10 active committee members who look after it, with the boreholes being used by 14-1591 people. The huge variation can be because the boreholes are haphazardly located, and water is drawn from boreholes based on the shortest walking distance. The huge number of people using a borehole means that regular maintenance will be required. The breakdown of the summary statistics is shown in @tbl-stat
+
+```{r}
+#| label: tbl-stat
+#| tbl-cap: "Summary statistics"
+
+summary <- borehole_data |> 
+  select(active_ppo,bh_use_num,tariff_amount) |> 
+  na.omit()
+table <- summary |> 
+  pivot_longer(everything(), names_to = "variable", values_to = "value") 
+
+table|> 
+    select(variable,value) |> 
+  tbl_summary(by=variable,
+              type = list(value ~ "continuous2"),
+statistic = all_continuous() ~ c("{mean}", "{sd}", "{min}, {max}", "{median}"),
+    missing = "no"
+  ) |> 
+  modify_header(label = '**Characteristic**',
+stat_1 = '**Active comittee members**, N = 89',
+stat_2 = '**Households per borehole**, N = 89',
+stat_3= '**Tariff (MWK)**, N=89'
+
+) |>  remove_row_type(value, type = "header") |> 
+  as_gt()
+```
 
 ## Distribution of boles per water point committee.
 
@@ -182,10 +213,10 @@ ggplot(scatter,aes(x=tariff_costs_consider, y=tariff_amount,fill=tariff_costs_co
 
 ## Functionality of boreholes
 
-Several factors were seen to be corelated with the functionality of boreholes. When the distance to buy spareparts was 20 km away, a 1 unit increase in the distance decreased the probability of borehole functionality by 50 percentage points (p=0.01)0 And if there was no collection of borehole tariff money, the percentage of a borehole being functional also decreased by 50 percentage points. The Model has been shown in @tbl-iris
+Several factors were seen to be corelated with the functionality of boreholes. When the distance to buy spare parts was 20 km away, a 1 unit increase in the distance decreased the probability of borehole functionality by 50 percentage points (p=0.01)0, And if there was no collection of borehole tariff money, the percentage of a borehole being functional also decreased by 50 percentage points. The Model has been shown in @tbl-reg
 
 ```{r}
-#| label: tbl-regression
+#| label: tbl-reg
 #| tbl-cap: Factors associated with borehole functionality.
 
 ols <- borehole_data |> 
